@@ -20,7 +20,7 @@
             <p class="text-center text-muted mb-4">Ingresa a tu cuenta</p>
 
             <form method="POST" action="{{ route('login') }}">
-                @csrf  
+                @csrf
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Correo electrónico</label>
                     <input type="email" name="email" class="form-control rounded-3" placeholder="tu@correo.com" required>
