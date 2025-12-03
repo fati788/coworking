@@ -13,4 +13,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('home');
     Route::get('/mis_reservas', [ReservaController::class , 'index'])->name('mis_reservas');
     Route::get('/nueva_reserva', [ReservaController::class , 'new'])->name('nueva_reserva');
+    //Buscar disponibilidad para una nueva reserva
+    Route::post('/buscar-disponibilidad', [ReservaController::class, 'buscarDisponibilidad'])->name('reservas.buscar');
+
 });

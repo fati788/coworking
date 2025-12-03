@@ -14,12 +14,13 @@
               <li>
                   {{$reserva->fecha}} -   {{$reserva->hora}} -   {{$reserva->sala->id}} -   {{$reserva->numpersonas}} -
                   {{$reserva->telefono}} -  {{$user->email}}
+                  <div class="text-sm text-gray-600">
+                      <a href="">Cancelar</a>
+                  </div>
               </li>
               @endforeach
             </ul>
-            <a href="{{route('nueva_reserva')}}"  class="mt-5 inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">
-                haz una reserva ahora
-            </a>
+            <x-button_w link="{{route('nueva_reserva')}}" texto="Haz una reserva ahora"/>
         </div>
 
 
