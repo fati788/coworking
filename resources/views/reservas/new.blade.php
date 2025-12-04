@@ -11,9 +11,17 @@
             <h1 class="mb-1 font-medium">Nueva Reserva: </h1>
             <form method="POST" action="{{ route('reservas.buscar') }}" class="space-y-4">
                 @csrf
-
+                @if ($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <!-- Fecha -->
-                  <input type="date" name="fecha">
+                <x-input label="Fecha" type="date" name="fecha" required />
 
                 <!-- Hora -->
                 <div>
@@ -29,6 +37,7 @@
 
                 <!-- Número de personas -->
                 <x-input label="Número de personas" type="number" name="personas" placeholder="2" required />
+                <x-input label="Teléfono de contacto" type="tel" name="telefono" placeholder="986325444" required />
 
                 <!-- Botón -->
                 <button type="submit" class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition">

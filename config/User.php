@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace config;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Reserva;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
