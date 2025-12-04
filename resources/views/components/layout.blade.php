@@ -24,51 +24,34 @@
     @if (Route::has('login'))
         <nav class="flex items-center justify-end gap-4">
             @auth
-                @if(auth()->user()->admin)
+                @if (auth()->user()->admin)
                     <a
-                        href="{{ route('mis_reservas') }}"
+                        href="{{ route('reservas.pendientes') }}"
                         class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                    >Reservas pendientes </a>
-
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >Cerrar Sesión
-                        </button>
-                    </form>
-                    <!--
-                <a
-                    href="{{ url('/dashboard') }}"
-                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                >
-                    Dashboard
-                </a>
-                -->
+                    >
+                        Reservas pendientes
+                    </a>
                 @else
                     <a
                         href="{{ route('mis_reservas') }}"
                         class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                    >Mis Reservas </a>
-
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >Cerrar Sesión
-                        </button>
-                    </form>
-                    <!--
-                <a
-                    href="{{ url('/dashboard') }}"
-                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                >
-                    Dashboard
-                </a>
-                -->
+                    >
+                        Mis Reservas
+                    </a>
                 @endif
-
-
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"  class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                    >Cerrar Sesión</button>
+                </form>
+                <!--
+                        <a
+                            href="{{ url('/dashboard') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                        >
+                            Dashboard
+                        </a>
+                        -->
             @else
                 <a
                     href="{{ route('login') }}"
@@ -85,9 +68,7 @@
                     </a>
                 @endif
             @endauth
-
         </nav>
-
     @endif
 
 </header>

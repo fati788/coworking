@@ -20,11 +20,15 @@ Route::middleware(['auth'])->group(function () {
     //Cancelar una reserva
     Route::get('/reservas/{reserva}/cancelar', [ReservaController::class, 'cancelar'])->name('reservas.cancelar');
 });
-Route::middleware(['auth', 'admin'])->group(function () {
-   //reviasr reservas
+//RUTAS PROTEGIDAS POR LOGIN Y ADMIN
+Route::middleware(['auth','admin'])->group(function () {
+    //Revisar reservas pendientes
     Route::get('/reservas/pendientes', [ReservaController::class, 'pendientes'])->name('reservas.pendientes');
-    Route::get('/reservas/filtrar', [ReservaController::class, 'filtrar'])->name('reservas.filtrar');
+
+    //Filtrar reservas
+    Route::post('/reservas/filtrar', [ReservaController::class, 'filtrar'])->name('reservas.filtrar');
+
+    //Confirmar una reserva
     Route::get('/reservas/{reserva}/confirmar', [ReservaController::class, 'confirmar'])->name('reservas.confirmar');
+
 });
-
-
