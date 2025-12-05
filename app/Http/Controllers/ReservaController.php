@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Reserva;
 use App\Models\Sala;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use function Pest\Laravel\json;
 
 class ReservaController extends Controller
 {
@@ -129,6 +131,70 @@ class ReservaController extends Controller
         }
 
         return view('reservas.pendientes', compact('reservas'));
+    }
+    public function apiNewReserva(Request $request)
+    {
+      $sala_id = $request->input('sala_id');
+      $fecha = $request->input('fecha');
+      $hora = $request->input('hora');
+      $numpersonas = $request->input('numpersonas');
+      $telefono = $request->input('telefono');
+      $user_id = $request->input('user_id');
+
+     $reservasOcupada =  DB::table('reservas')->where('sala_id', $sala_id)
+          ->where('fecha', $fecha)
+          ->where('hora', $hora)
+           ->first();
+
+      if ($reservasOcupada) {
+          return response()->json([
+              "message" => "Ya existe una reserva para este sala",
+              "error" =>1
+          ]);
+      }
+      $sala = Sala::findOrFail($sala_id);
+      if (($sala->capacidad < $numpersonas) || (($sala->capacidad - $numpersonas) > 2)) {
+          return response()->json([
+              "mensaje" => "sala de tamaño ",
+              "error" =>1
+          ]);
+
+      }
+
+        $reserva = Reserva::create(['sala_id' => $sala_id,
+            'fecha' => $fecha,
+            'hora' => $hora,
+            'user_id' => $user_id,
+            'numpersonas' => $numpersonas,
+            'telefono' => $telefono,
+            'estado' => 'pendiente']);
+        return $reserva->toResource();
+
+    }
+    public function apiUpdateReserva($id)
+    {
+        $reserva = Reserva::findOrFail($id);
+
+        $reserva = Reserva::findOrFail($id);
+        if (!$reserva->user_id == auth()->id() || !auth()->admin){
+            abort(403);
+        }
+        $reserva->estado = 'cancelada';
+        $reserva->save();
+
+        return $reserva->toResource();
+    }
+    public function apiDeleteReserva($id)
+    {
+        $reserva = Reserva::findOrFail($id);
+        if (!$reserva->user_id == auth()->id() || !auth()->admin){
+            abort(403);
+        }
+        $reserva->delete();
+        return response()->json([
+            "mensaje" => "Reserva eliminada",
+            "reserva" =>$reserva->toResource()
+        ]);
     }
 
 }
